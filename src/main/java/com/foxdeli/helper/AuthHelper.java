@@ -2,6 +2,7 @@ package com.foxdeli.helper;
 
 import com.auth0.jwt.JWT;
 import com.foxdeli.exception.FoxdeliAuthenticationException;
+import com.foxdeli.token.ApiClient;
 import com.foxdeli.token.ApiException;
 import com.foxdeli.token.api.TokenApi;
 import com.foxdeli.token.api.model.Authorization;
@@ -10,6 +11,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
+
+import static com.foxdeli.constant.Constant.STAGE_PATH_CUSTOMER;
 
 /**
  * The `AuthHelper` class provides utility methods for handling authentication and authorization with the Foxdeli API.
@@ -51,7 +54,7 @@ public class AuthHelper {
     /**
      * The API client for handling token-related operations.
      */
-    private static final TokenApi tokenApi = new TokenApi();
+    private static TokenApi tokenApi;
 
     /**
      * Sets the username for API authentication.
@@ -86,6 +89,22 @@ public class AuthHelper {
                 invalidate();
             }
             AuthHelper.password = password;
+        }
+    }
+
+    /**
+     * Initialize the token API client. If the stage setting is set to true, initialize with custom stage env endpoint.
+     * Otherwise, use default settings for production env.
+     *
+     * @param stage decide whether to use stage env or not.
+     */
+    public static void initTokenApi(boolean stage) {
+        if (stage) {
+            ApiClient client = new ApiClient();
+            client.setBasePath(STAGE_PATH_CUSTOMER);
+            tokenApi = new TokenApi(client);
+        } else {
+            tokenApi = new TokenApi();
         }
     }
 

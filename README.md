@@ -53,6 +53,17 @@ UUID marketId = UUID.fromString("your_market_id");
 Foxdeli.init(username, password, eshopId, marketId);
 ```
 
+3. Both above mentioned methods can be used with additional boolean param `stage`. This can be used in case of testing your app against stage environment. The default value is `false`.
+
+```java
+...
+Foxdeli.init(username, password, stage);
+```
+or
+```java
+...
+Foxdeli.init(username, password, eshopId, marketId, stage);
+```
 ## Managing Orders
 
 The `Foxdeli` client provides methods to create, retrieve, update, and cancel orders.
@@ -124,7 +135,7 @@ To create a parcel, provide the `orderId` and the `ParcelRequest` object with pa
 ```java
 UUID orderId = UUID.fromString("your_order_id");
 ParcelRequest parcelRequest = ParcelRequest.builder().build(); // Replace this with actual parcel details
-Parcel createdParcel = Foxdeli.createParcel(orderId,parcelRequest);
+Parcel createdParcel = Foxdeli.createParcel(orderId, parcelRequest);
 ```
 
 ### Retrieve a Parcel

@@ -30,6 +30,8 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.UUID;
 
+import static com.foxdeli.constant.Constant.STAGE_PATH_TRACKING;
+
 /**
  * The `Foxdeli` class provides a set of static methods to interact with the Foxdeli API for managing orders and parcels.
  * It offers methods for initializing the API, creating, updating, and canceling orders, and managing parcels.
@@ -61,10 +63,24 @@ public class Foxdeli {
      * @throws FoxdeliAuthenticationException If the API call to get access token fails.
      */
     public static void init(String username, String password) {
+        init(username, password, false);
+    }
+
+    /**
+     * Initializes the `Foxdeli` class with the given username and password and specify if you want to use `stage` env.
+     * This method should be called before using any other API methods.
+     *
+     * @param username The username to authenticate with the Foxdeli API.
+     * @param password The password to authenticate with the Foxdeli API.
+     * @param stage If true, SDK will connect to `stage` env. If false, SDK will connect to `prod` env.
+     * @throws FoxdeliAuthenticationException If the API call to get access token fails.
+     */
+    public static void init(String username, String password, boolean stage) {
         AuthHelper.setUsername(username);
         AuthHelper.setPassword(password);
+        AuthHelper.initTokenApi(stage);
         AuthHelper.authorize();
-        initApi();
+        initApi(stage);
     }
 
     /**
@@ -78,9 +94,24 @@ public class Foxdeli {
      * @throws FoxdeliAuthenticationException If the API call to get access token fails.
      */
     public static void init(String username, String password, UUID eshopId, UUID marketId) {
+        init(username, password, eshopId, marketId, false);
+    }
+
+    /**
+     * Initializes the `Foxdeli` class with the given username, password, eshopId, and marketId and specify if you want to use `stage` env.
+     * This method sets up the API client with the provided credentials and identifiers.
+     *
+     * @param username The username to authenticate with the Foxdeli API.
+     * @param password The password to authenticate with the Foxdeli API.
+     * @param eshopId  The unique identifier for the eshop.
+     * @param marketId The unique identifier for the market.
+     * @param stage If true, SDK will connect to `stage` env. If false, SDK will connect to `prod` env.
+     * @throws FoxdeliAuthenticationException If the API call to get access token fails.
+     */
+    public static void init(String username, String password, UUID eshopId, UUID marketId, boolean stage) {
         setEshopId(eshopId);
         setMarketId(marketId);
-        init(username, password);
+        init(username, password, stage);
     }
 
     /**
@@ -306,7 +337,7 @@ public class Foxdeli {
      * Initializes the Foxdeli API client with the provided username and password, and sets up the required interceptors.
      * This method should be called internally during initialization.
      */
-    private static void initApi() {
+    private static void initApi(boolean stage) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new AuthInterceptor())
                 .addInterceptor(new ErrorHandlingInterceptor())
@@ -314,6 +345,9 @@ public class Foxdeli {
                 .authenticator(new FoxdeliAuthenticator())
                 .build();
         ApiClient apiClient = new ApiClient(okHttpClient);
+        if (stage) {
+            apiClient.setBasePath(STAGE_PATH_TRACKING);
+        }
         ordersApi = new OrdersApi(apiClient);
         parcelsApi = new ParcelsApi(apiClient);
     }
