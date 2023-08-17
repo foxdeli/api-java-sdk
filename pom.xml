@@ -9,7 +9,7 @@
     <description>Foxdeli Java SDK</description>
 
     <properties>
-        <java.version>19</java.version>
+        <java.version>20</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <openapi-generator-maven-plugin.version>6.6.0</openapi-generator-maven-plugin.version>
