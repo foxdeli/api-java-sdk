@@ -40,7 +40,7 @@ are two methods available for initialization:
 ```java
 String username = "your_username";
 String password = "your_password";
-Foxdeli.init(username,password);
+Foxdeli.init(username, password);
 ```
 
 2. With username, password, eshopId, and marketId:
@@ -50,7 +50,7 @@ String username = "your_username";
 String password = "your_password";
 UUID eshopId = UUID.fromString("your_eshop_id");
 UUID marketId = UUID.fromString("your_market_id");
-Foxdeli.init(username,password,eshopId,marketId);
+Foxdeli.init(username, password, eshopId, marketId);
 ```
 
 ## Managing Orders
@@ -67,7 +67,7 @@ You can create an order using different methods with varying parameters. For exa
 OrderRequest orderRequest = OrderRequest.builder().build(); // Replace this with actual order details
 UUID marketId = UUID.fromString("your_market_id");
 UUID eshopId = UUID.fromString("your_eshop_id");
-Order createdOrder = Foxdeli.createOrder(orderRequest,marketId,eshopId);
+Order createdOrder = Foxdeli.createOrder(orderRequest, marketId, eshopId);
 ```
 
 2. Create an order with default `eshopId` but custom `marketId` (requires prior initialization):
@@ -75,7 +75,7 @@ Order createdOrder = Foxdeli.createOrder(orderRequest,marketId,eshopId);
 ```java
 OrderRequest orderRequest = OrderRequest.builder().build(); // Replace this with actual order details
 UUID marketId = UUID.fromString("your_market_id"); // Only required if not initialized with eshopId and marketId
-Order createdOrder = Foxdeli.createOrder(orderRequest,marketId);
+Order createdOrder = Foxdeli.createOrder(orderRequest, marketId);
 ```
 
 3. Create an order with default `marketId` and `eshopId` (requires prior initialization):
@@ -101,7 +101,7 @@ To update an existing order, provide the updated order details and the `orderId`
 ```java
 OrderRequest updatedOrderRequest = OrderRequest.builder().build(); // Replace this with actual updated order details
 UUID orderId = UUID.fromString("your_order_id");
-Order updatedOrder = Foxdeli.updateOrder(updatedOrderRequest,orderId);
+Order updatedOrder = Foxdeli.updateOrder(updatedOrderRequest, orderId);
 ```
 
 ### Cancel an Order
@@ -134,7 +134,7 @@ To retrieve a parcel, provide the `orderId` and the `parcelId`:
 ```java
 UUID orderId = UUID.fromString("your_order_id");
 UUID parcelId = UUID.fromString("your_parcel_id");
-Parcel retrievedParcel = Foxdeli.getParcel(orderId,parcelId);
+Parcel retrievedParcel = Foxdeli.getParcel(orderId, parcelId);
 ```
 
 ### Update a Parcel
@@ -146,7 +146,7 @@ details:
 UUID orderId = UUID.fromString("your_order_id");
 UUID parcelId = UUID.fromString("your_parcel_id");
 ParcelRequest updatedParcelRequest = ParcelRequest.builder().build(); // Replace this with actual updated parcel details
-Parcel updatedParcel = Foxdeli.updateParcel(orderId,parcelId,updatedParcelRequest);
+Parcel updatedParcel = Foxdeli.updateParcel(orderId, parcelId, updatedParcelRequest);
 ```
 
 ### Delete a Parcel
@@ -156,7 +156,7 @@ To delete a parcel, provide the `orderId` and the `parcelId`:
 ```java
 UUID orderId = UUID.fromString("your_order_id");
 UUID parcelId = UUID.fromString("your_parcel_id");
-Foxdeli.deleteParcel(orderId,parcelId);
+Foxdeli.deleteParcel(orderId, parcelId);
 ```
 
 ## Managing orders and parcels at once
