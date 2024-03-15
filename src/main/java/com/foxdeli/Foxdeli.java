@@ -15,8 +15,8 @@ import com.foxdeli.model.response.Order;
 import com.foxdeli.model.response.Parcel;
 import com.foxdeli.orders.ApiClient;
 import com.foxdeli.orders.ApiException;
-import com.foxdeli.orders.api.OrdersApi;
-import com.foxdeli.orders.api.ParcelsApi;
+import com.foxdeli.orders.api.OrderV1Api;
+import com.foxdeli.orders.api.ParcelV1Api;
 import com.foxdeli.orders.api.model.DeliveryState;
 import com.foxdeli.orders.api.model.OrderRegistration;
 import com.foxdeli.orders.api.model.OrderUpdate;
@@ -49,8 +49,8 @@ public class Foxdeli {
 
     private static UUID eshopId;
     private static UUID marketId;
-    private static OrdersApi ordersApi;
-    private static ParcelsApi parcelsApi;
+    private static OrderV1Api ordersApi;
+    private static ParcelV1Api parcelsApi;
     private static final OrderMapper orderMapper = Mappers.getMapper(OrderMapper.class);
     private static final ParcelMapper parcelMapper = Mappers.getMapper(ParcelMapper.class);
 
@@ -348,7 +348,7 @@ public class Foxdeli {
         if (stage) {
             apiClient.setBasePath(STAGE_PATH_TRACKING);
         }
-        ordersApi = new OrdersApi(apiClient);
-        parcelsApi = new ParcelsApi(apiClient);
+        ordersApi = new OrderV1Api(apiClient);
+        parcelsApi = new ParcelV1Api(apiClient);
     }
 }

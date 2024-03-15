@@ -6,6 +6,7 @@ import com.foxdeli.token.ApiClient;
 import com.foxdeli.token.ApiException;
 import com.foxdeli.token.api.TokenApi;
 import com.foxdeli.token.api.model.Authorization;
+import com.foxdeli.token.api.model.RefreshTokenCommand;
 import com.foxdeli.token.api.model.TokenPair;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -132,7 +133,7 @@ public class AuthHelper {
     public static void refreshToken() {
         final TokenPair tokenPair;
         try {
-            tokenPair = tokenApi.refresh(refreshToken, null);
+            tokenPair = tokenApi.refresh(new RefreshTokenCommand().refreshToken(refreshToken));
         } catch (ApiException e) {
             throw new FoxdeliAuthenticationException("Refresh token failed with code " + e.getCode() + " and response body: " + e.getResponseBody());
         }

@@ -11,7 +11,7 @@ The documentation for the Foxdeli API can be found [here](https://api.foxdeli.co
 
 ## Installation
 
-twilio-java uses Maven. At present the jars are available from a public maven repository.
+foxdeli-java-sdk uses Maven. At present the jars are available from this github repository.
 
 Use the following dependency in your project to grab via Maven:
 
