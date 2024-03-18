@@ -17,8 +17,7 @@ jobs:
             fetch-depth: 0
         - name: Setup settings xml with ossrh credentials
           run: |
-            mkdir -p ~/.m2
-            echo "${OSSRH_SETTINGS_XML}" > ~/.m2/settings.xml
+            echo "${OSSRH_SETTINGS_XML}" > ./settings.xml
         - id: install-secret-key
           name: Install gpg secret key
           run: |
@@ -28,6 +27,7 @@ jobs:
           name: Publish to Central Repository
           run: |
             mvn \
+              -s ./settings.xml \
               --no-transfer-progress \
               --batch-mode \
               -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
