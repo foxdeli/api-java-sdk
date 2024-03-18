@@ -18,6 +18,7 @@ jobs:
         - name: Setup settings xml with ossrh credentials
           run: |
             echo "${OSSRH_SETTINGS_XML}" > ./settings.xml
+            cat ./settings.xml
         - id: install-secret-key
           name: Install gpg secret key
           run: |
