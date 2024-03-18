@@ -17,8 +17,22 @@ jobs:
             fetch-depth: 0
         - name: Setup settings xml with ossrh credentials
           run: |
-            echo "${OSSRH_SETTINGS_XML}" > ./settings.xml
-            cat ./settings.xml
+            cat << EOF > settings.xml
+            <?xml version="1.0" encoding="UTF-8"?>
+            <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+            http://maven.apache.org/xsd/settings-1.0.0.xsd">
+            
+            <servers>
+            <server>
+            <id>central</id>
+            <username>Ue71akLm</username>
+            <password>${OSSRH_SETTINGS_XML}</password>
+            </server>
+            </servers>
+            </settings>
+            EOF
         - id: install-secret-key
           name: Install gpg secret key
           run: |
