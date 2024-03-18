@@ -8,6 +8,22 @@
     <name>Foxdeli Java SDK</name>
     <description>Foxdeli Java SDK</description>
     <url>https://github.com/foxdeli/api-java-sdk</url>
+    <developers>
+        <developer>
+            <id>foxdeli</id>
+            <name>Foxdeli</name>
+            <email>apps@foxdeli.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/foxdeli/api-java-sdk</url>
+    </scm>
 
     <properties>
         <java.version>19</java.version>
