@@ -1,0 +1,40 @@
+name: Release to Maven central
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+jobs:
+    publish:
+      name: Build and deploy to Maven central
+      runs-on:
+        group: Foxdeli-runners-dind
+      permissions:
+        contents: write
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        - name: Setup settings xml with ossrh credentials
+          run: |
+            mkdir -p ~/.m2
+            echo "${OSSRH_SETTINGS_XML}" > ~/.m2/settings.xml
+        - id: install-secret-key
+          name: Install gpg secret key
+          run: |
+            # Install gpg secret key
+            cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+        - id: publish-to-central
+          name: Publish to Central Repository
+          run: |
+            mvn \
+              --no-transfer-progress \
+              --batch-mode \
+              -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} \
+              clean deploy
+        - name: Release
+          uses: softprops/action-gh-release@v2
+          if: startsWith(github.ref, 'refs/tags/')
+          with:
+            files: |
+              target/*.jar
