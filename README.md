@@ -11,7 +11,7 @@ The documentation for the Foxdeli API can be found [here](https://api.foxdeli.co
 
 ## Installation
 
-foxdeli-java-sdk uses Maven. At present the jars are available from this github repository.
+Foxdeli-java-sdk uses Maven. At present the jars are available from [Maven central](https://central.sonatype.com/artifact/com.foxdeli/foxdeli-java-sdk).
 
 Use the following dependency in your project to grab via Maven:
 
@@ -19,7 +19,7 @@ Use the following dependency in your project to grab via Maven:
 <dependency>
   <groupId>com.foxdeli</groupId>
   <artifactId>foxdeli-java-sdk</artifactId>
-  <version>X.X.X</version>
+  <version>1.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -27,7 +27,7 @@ Use the following dependency in your project to grab via Maven:
 or Gradle:
 
 ```json
-implementation "com.foxdeli:foxdeli-java-sdk:X.X.X"
+implementation "com.foxdeli:foxdeli-java-sdk:1.0.0"
 ```
 
 ## Initialization
